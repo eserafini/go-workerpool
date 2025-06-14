@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/eserafini/golangtechweek/pkg/workerpool"
+	"github.com/eserafini/go-workerpool/pkg/workerpool"
 )
 
 type NumberJob struct {
@@ -15,8 +15,8 @@ type NumberJob struct {
 }
 
 type NumberResult struct {
-	Value int
-	WorkerID int
+	Value     int
+	WorkerID  int
 	Timestamp time.Time
 }
 
@@ -24,12 +24,12 @@ func proccessNumber(ctx context.Context, job workerpool.Job) workerpool.Result {
 	number := job.(NumberJob).Number
 	workerID := number % 3
 
-	sleepTime := time.Duration(800 + rand.Intn(400)) * time.Millisecond
+	sleepTime := time.Duration(800+rand.Intn(400)) * time.Millisecond
 	time.Sleep(sleepTime)
 
 	return NumberResult{
-		Value: number,
-		WorkerID: workerID,
+		Value:     number,
+		WorkerID:  workerID,
 		Timestamp: time.Now(),
 	}
 }
